@@ -5,21 +5,38 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import firebase from 'firebase/app';
+import { FirebaseAuthConsumer, FirebaseAuthProvider } from '@react-firebase/auth';
+import "firebase/auth";
+import "firebase/database";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import SignIn from './components/SignIn';
+import { BrowserRouter } from 'react-router-dom';
 
 const config = {
   apiKey: "AIzaSyBg49A4-rwUOkdAWEIv7k_4h6k4U3GTvxg",
   authDomain: "complex-voting.firebaseapp.com",
   projectId: "complex-voting",
+  databaseURL: "https://complex-voting-default-rtdb.firebaseio.com/",
   storageBucket: "complex-voting.appspot.com",
   messagingSenderId: "129002144891",
   appId: "1:129002144891:web:50972f69a2954940b18ede"
 };
 
-firebase.initializeApp(config)
-
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <FirebaseAuthProvider firebase={firebase} {...config}>
+      <FirebaseAuthConsumer>
+        {({ isSignedIn, user }) => {
+          if (isSignedIn) return (
+            <BrowserRouter>
+              <App user />
+            </BrowserRouter>
+          )
+          return <SignIn />
+        }}
+      </FirebaseAuthConsumer>
+    </FirebaseAuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
