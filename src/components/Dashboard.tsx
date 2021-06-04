@@ -4,37 +4,22 @@ import { Button, Col, Container, Row, Navbar, Nav, NavDropdown, Form, FormContro
 import {
   FirebaseDatabaseMutation
 } from "@react-firebase/database";
+import { allAreas, allProperties } from "../data/ideal-areas";
 
 const Dashboard = () => {
 
-  const handleAddAp = async () => {
-    const db = firebase.firestore()
-    const doc = await db.collection("apartments").doc("12").set({
-      name: "Los Angeles",
-      state: "CA",
-      country: "USA"
-    })
-
-    console.log(doc)
-  }
+  // const handleAddAp = async () => {
+  //   const db = firebase.firestore();
+  //   const batch = db.batch();
+  //   allProperties().forEach(property => {
+  //     batch.set(db.collection("properties").doc(property.name), property)
+  //   })
+  //   batch.commit().then(console.log).catch(console.error)
+  // }
 
   return (
     <div>
-      {/* <FirebaseDatabaseMutation path={'apartments/'} type="push">
-        {({ runMutation }) => (
-          <button
-            data-testid="add-document"
-            onClick={async () => {
-              const { key } = await runMutation({ wow: 'wow' });
-              if (key === null || typeof key === "undefined") return;
-
-            }}
-          >
-            add-document-with-generated-key
-          </button>
-        )}
-      </FirebaseDatabaseMutation> */}
-      <Button onClick={handleAddAp}>Add ap</Button>
+      
     </div>
   )
 }

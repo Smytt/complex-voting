@@ -12,6 +12,8 @@ import "firebase/database";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignIn from './components/SignIn';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const config = {
   apiKey: "AIzaSyBg49A4-rwUOkdAWEIv7k_4h6k4U3GTvxg",
@@ -25,18 +27,20 @@ const config = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseAuthProvider firebase={firebase} {...config}>
-      <FirebaseAuthConsumer>
-        {({ isSignedIn, user }) => {
-          if (isSignedIn) return (
-            <BrowserRouter>
-              <App user />
-            </BrowserRouter>
-          )
-          return <SignIn />
-        }}
-      </FirebaseAuthConsumer>
-    </FirebaseAuthProvider>
+    <Provider store={store}>
+      <FirebaseAuthProvider firebase={firebase} {...config}>
+        <FirebaseAuthConsumer>
+          {({ isSignedIn, user }) => {
+            if (isSignedIn) return (
+              <BrowserRouter>
+                <App user />
+              </BrowserRouter>
+            )
+            return <SignIn />
+          }}
+        </FirebaseAuthConsumer>
+      </FirebaseAuthProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

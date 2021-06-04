@@ -6,10 +6,6 @@ const SignIn = () => {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
 
-  useEffect(() => {
-    console.log(firebase.auth().currentUser)
-  }, [])
-  
   return (
     <Container style={{width: "500px"}}>
       <h1>Моля, влезте в профила си.</h1>
