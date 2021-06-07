@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchApartments } from './redux/actions/properties';
 import Properties from './components/Properties';
+import Meeting from './components/Meeting';
+import { allProperties } from './data/ideal-areas';
 
 function App({ user }) {
 
@@ -40,6 +42,7 @@ function App({ user }) {
         <Route path="/" component={Dashboard} exact />
         <Route path="/properties" component={Properties} exact />
         <Route path="/add-meeting" component={NewMeeting} />
+        <Route path="/meeting/:id" component={Meeting} />
       </Switch>
 
     </div>

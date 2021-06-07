@@ -8,11 +8,11 @@ export const fetchApartments = () => async dispatch => {
     type: FETCH_APARTMENTS_LOADING
   })
   
-  const snapshot = await firebase.firestore().collection('properties').get()
-  const allProperties = snapshot.docs.map(doc => doc.data())
-  
+  // const snapshot = await firebase.firestore().collection('properties').get()
+  // const allProperties = snapshot.docs.map(doc => doc.data())
+
   dispatch({
     type: FETCH_APARTMENTS_SUCCESS,
-    payload: allProperties
+    payload: allProperties()
   })
 }

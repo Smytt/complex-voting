@@ -1,39 +1,45 @@
+import firebase from "firebase";
+
 export const allAreas = [
   {
-    "name": "А-01А",
+    "name": "А-001А",
     "area": "2.50"
   },
   {
-    "name": "М-1",
+    "name": "М-01",
     "area": "1.84"
   },
   {
-    "name": "М-2",
+    "name": "М-02",
     "area": "1.70"
   },
   {
-    "name": "М-3",
+    "name": "М-03",
     "area": "1.94"
   },
   {
-    "name": "М-4",
+    "name": "М-04",
     "area": "1.93"
   },
   {
-    "name": "М-5",
+    "name": "М-05",
     "area": "1.84"
   },
   {
-    "name": "М-6",
+    "name": "М-06",
     "area": "2.39"
   },
   {
-    "name": "М-7",
+    "name": "М-07",
     "area": "1.19"
   },
   {
-    "name": "М-8",
+    "name": "М-08",
     "area": "1.05"
+  },
+  {
+    "name": "М-09",
+    "area": "10.11"
   },
   {
     "name": "М-10",
@@ -90,10 +96,6 @@ export const allAreas = [
   {
     "name": "М-23",
     "area": "3.63"
-  },
-  {
-    "name": "М-9",
-    "area": "10.11"
   },
   {
     "name": "А-01",
@@ -1077,5 +1079,14 @@ export const allProperties = () => {
     }
   })
 
-  return [...v1, ...v2, ...v3, ...v4, ...v5, ...v5, ...v7, ...v8, ...vm];
+  return [...v1, ...v2, ...v3, ...v4, ...v5, ...v6, ...v7, ...v8, ...vm];
+}
+
+export const submitPropertiesToDb = () => {
+  const db = firebase.firestore()
+  const batch = db.batch()
+  allProperties().forEach(property => {
+    batch.set(db.collection('properties').doc(property.name), property)
+  })
+  batch.commit()
 }

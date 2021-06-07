@@ -2,7 +2,6 @@ import { useSelector } from "react-redux"
 
 const Properties = () => {
   const properties: any = useSelector<any>(state => state.properties)
-  console.log(properties)
 
   if (properties.loading) return <p>loading...</p>
   return (
