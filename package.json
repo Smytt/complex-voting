@@ -15,6 +15,7 @@
     "@types/react-dom": "^17.0.5",
     "bootstrap": "^4.6.0",
     "firebase": "^8.6.3",
+    "gh-pages": "^3.2.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.0",
@@ -26,6 +27,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -48,5 +50,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "http://smytt.github.io/complex-voting"
 }
