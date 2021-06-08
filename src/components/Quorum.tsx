@@ -1,66 +1,40 @@
 import { useSelector } from "react-redux";
 import { Button, Table, Spinner, Container, ToggleButton, ProgressBar } from "react-bootstrap";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+import ButtonWithLoading from "./ButtonWithLoading";
+import firebase from "firebase";
+import { calculatePercentage, mapPropertiesByApNumber } from "../utils";
+import { entranceMaps } from "../data/ideal-areas";
 
 const Quorum = ({ quorum }) => {
 
-  const [checked, setChecked] = useState<any>([])
+  const { id } = useParams();
+  const [attending, setAttending] = useState<any>(quorum)
   const properties: any = useSelector<any>(state => state.properties);
-  const entranceMaps = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'М']
-  const propertiesByNumber: any = useSelector<any>(state => {
-    const byApNumber = state.properties.all.reduce((acc, cur) => {
-      const apNumber = cur.name.split('-')[1];
-      if (!acc[apNumber]) {
-        acc[apNumber] = [cur]
-        return acc;
-      }
-      acc[apNumber].push(cur)
-      return acc;
-    }, {})
-    console.log(byApNumber)
+  const propertiesByNumber: any = useSelector<any>(state => mapPropertiesByApNumber(state.properties.all))
 
-    Object.keys(byApNumber).forEach(number => {
-
-      const firstEntrance = byApNumber[number][0].name[0];
-      const lastEntrance = byApNumber[number][byApNumber[number].length - 1].name[0];
-      const cellsToPrepend = entranceMaps.findIndex(oneEntrance => oneEntrance === firstEntrance);
-      const cellsToAppend = entranceMaps.length - entranceMaps.findIndex(oneEntrance => oneEntrance === lastEntrance) - 1;
-
-      byApNumber[number] = [
-        ...Array.from(Array(cellsToPrepend).keys()),
-        ...byApNumber[number],
-        ...Array.from(Array(cellsToAppend).keys()),
-      ]
-    })
-    return byApNumber
-  })
-
-  const collectedArea = properties.all
-    .filter(property => checked.some(checkedProperty => checkedProperty === property.name))
-    .reduce((acc, cur) => {
-      acc += cur.area
-      return acc
-    }, 0)
-
-  const totalArea = properties.all
-    .reduce((acc, cur) => {
-      acc += cur.area
-      return acc
-    }, 0)
-
-  const percentage = Math.round(collectedArea * 100 * 100 / totalArea) / 100
+  const percentage = calculatePercentage(properties.all, attending)
 
   const handleCheck = (name) => {
-    if (checked.includes(name)) {
-      setChecked(checked.filter(property => property !== name))
+    if (attending.includes(name)) {
+      setAttending(attending.filter(property => property !== name))
     } else {
-      setChecked([...checked, name])
+      setAttending([...attending, name])
     }
+  }
+
+  const handleSave = async () => {
+    await firebase.firestore().collection('meetings').doc(id)
+      .update({
+        quorum: attending
+      })
   }
 
   return (
     <div>
-      <ProgressBar striped variant={percentage < 50 ? 'danger' : 'success'} className="my-4" now={percentage} label={`${percentage}%`} />
+      <ProgressBar striped variant={percentage < 50 ? 'danger' : 'success'} className="my-2" now={percentage} label={`${percentage}%`} />
+      <ButtonWithLoading text={"Запази"} handler={handleSave} />
       <Table striped bordered hover className="text-center">
         <thead>
           <tr>
@@ -80,7 +54,7 @@ const Quorum = ({ quorum }) => {
                           <Button
                             size="sm"
                             id="toggle-check"
-                            variant={checked.includes(property.name) ? 'primary' : 'outline-secondary'}
+                            variant={attending.includes(property.name) ? 'primary' : 'outline-secondary'}
                             onClick={(e) => handleCheck(property.name)}
                           >
                             {property.name}

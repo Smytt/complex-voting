@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import firebase from "firebase"
 import Quorum from "./Quorum";
+import Topics from "./Topics";
 
 const Meeting = () => {
   const { id } = useParams();
@@ -11,14 +12,11 @@ const Meeting = () => {
   const [meeting, setMeeting] = useState<any>({ loading: true })
 
   useEffect(() => {
-    const unsubscribe = firebase.firestore().collection('meetings').doc(id)
+    firebase.firestore().collection('meetings').doc(id)
       .onSnapshot(doc => {
         setMeeting({ data: doc.data(), loading: false })
       })
-    return () => {
-      unsubscribe()
-    }
-  }, [])
+  }, [id])
 
   return (
     <Container className="my-4">
@@ -41,7 +39,7 @@ const Meeting = () => {
                 <Quorum quorum={meeting.data.quorum} />
               </Tab>
               <Tab eventKey="topics" title="Теми">
-                <p>Hi 2!</p>
+                <Topics topics={meeting.data.topics}/>
               </Tab>
             </Tabs>
           </div>

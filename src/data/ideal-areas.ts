@@ -1090,3 +1090,5 @@ export const submitPropertiesToDb = () => {
   })
   batch.commit()
 }
+
+export const entranceMaps = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'М']

@@ -11,17 +11,14 @@ const Dashboard = () => {
   const [meetings, setMeetings] = useState<any>({ loading: true })
 
   useEffect(() => {
-    const unsubscribe = firebase.firestore().collection('meetings')
-      .onSnapshot((meetings) => {
+    firebase.firestore().collection('meetings').get()
+      .then(meetings => {
         const docs = meetings.docs.map(doc => ({ id: doc.id, data: doc.data() }));
-        console.log(docs)
         setMeetings({
           loading: false,
           all: docs
         })
       })
-
-    return () => unsubscribe();
   }, [])
 
   return (
