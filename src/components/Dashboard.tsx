@@ -48,7 +48,7 @@ const Dashboard = () => {
                     <td>{moment(meeting.data.date).locale('bg').format('LL')}</td>
                     <td>{meeting.data.quorum.length}</td>
                     <td>{meeting.data.open
-                      ? <Link to={`/meeting/${meeting.id}`}><Button size="sm">Старт</Button></Link>
+                      ? <Link to={`/#/meeting/${meeting.id}`}><Button size="sm">Старт</Button></Link>
                       : <Button size="sm" variant="secondary" disabled>Приключило</Button>}</td>
                     <td>{<Button size="sm" variant="success" disabled={meeting.data.open}>Протокол</Button>}</td>
                   </tr>
