@@ -21,24 +21,25 @@ function App({ user }) {
 
   return (
     <div>
-      <Navbar bg="light">
-        <Link to="/#">
-          <Navbar.Brand>
-            Соната 378
-          </Navbar.Brand>
-        </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Link className="mr-auto" to="/#/add-meeting">
-            <Button variant="outline-secondary">Ново ОС</Button>
-          </Link>
-          <Link className="mr-auto" to="/#/properties">
-            <Button variant="outline-secondary">Списък с имоти</Button>
-          </Link>
-          <Button variant="outline-success" onClick={() => firebase.auth().signOut()}>Изход</Button>
-        </Navbar.Collapse>
-      </Navbar>
+
       <HashRouter basename="/">
+        <Navbar bg="light">
+          <Link to="/">
+            <Navbar.Brand>
+              Соната 378
+          </Navbar.Brand>
+          </Link>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Link className="mr-auto" to="/add-meeting">
+              <Button variant="outline-secondary">Ново ОС</Button>
+            </Link>
+            <Link className="mr-auto" to="/properties">
+              <Button variant="outline-secondary">Списък с имоти</Button>
+            </Link>
+            <Button variant="outline-success" onClick={() => firebase.auth().signOut()}>Изход</Button>
+          </Navbar.Collapse>
+        </Navbar>
         <Route path="/" component={Dashboard} exact />
         <Route path="/properties" component={Properties} exact />
         <Route path="/add-meeting" component={NewMeeting} />
