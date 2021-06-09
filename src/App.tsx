@@ -2,7 +2,7 @@ import './App.css';
 import firebase from 'firebase'
 import Dashboard from './components/Dashboard';
 import { Button, Navbar } from 'react-bootstrap';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, HashRouter, Link } from 'react-router-dom';
 import NewMeeting from './components/NewMeeting';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -38,12 +38,12 @@ function App({ user }) {
           <Button variant="outline-success" onClick={() => firebase.auth().signOut()}>Изход</Button>
         </Navbar.Collapse>
       </Navbar>
-      <Switch>
+      <HashRouter basename="/">
         <Route path="/" component={Dashboard} exact />
         <Route path="/properties" component={Properties} exact />
         <Route path="/add-meeting" component={NewMeeting} />
         <Route path="/meeting/:id" component={Meeting} />
-      </Switch>
+      </HashRouter>
 
     </div>
   )
