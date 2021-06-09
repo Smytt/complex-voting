@@ -7,9 +7,10 @@ import firebase from "firebase";
 import { calculatePercentage, mapPropertiesByApNumber } from "../utils";
 import { entranceMaps } from "../data/ideal-areas";
 
-const Quorum = ({ quorum }) => {
+const Quorum = () => {
 
   const { id } = useParams();
+  const quorum: any = useSelector<any>(state => state.meeting.data.quorum)
   const [attending, setAttending] = useState<any>(quorum)
   const properties: any = useSelector<any>(state => state.properties);
   const propertiesByNumber: any = useSelector<any>(state => mapPropertiesByApNumber(state.properties.all))
@@ -39,7 +40,7 @@ const Quorum = ({ quorum }) => {
         <thead>
           <tr>
             {
-              entranceMaps.map(entrance => <th>{entrance}</th>)
+              entranceMaps.map(entrance => <th key={entrance}>{entrance}</th>)
             }
           </tr>
           {
@@ -50,7 +51,7 @@ const Quorum = ({ quorum }) => {
                   {
                     propertiesByNumber[apNumber].map((property, i) =>
                       property.name ?
-                        <td className="p-0">
+                        <td className="p-1" key={property.name}>
                           <Button
                             size="sm"
                             id="toggle-check"
@@ -60,7 +61,7 @@ const Quorum = ({ quorum }) => {
                             {property.name}
                           </Button>
                         </td>
-                        : <td></td>)
+                        : <td key={i}></td>)
                   }
                 </tr>
               )

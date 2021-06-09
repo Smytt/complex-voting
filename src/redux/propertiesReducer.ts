@@ -1,4 +1,4 @@
-import { FETCH_APARTMENTS_ERROR, FETCH_APARTMENTS_LOADING, FETCH_APARTMENTS_SUCCESS } from "./actions/types";
+import { FETCH_PROPERTIES_ERROR, FETCH_PROPERTIES_LOADING, FETCH_PROPERTIES_SUCCESS } from "./actions/types";
 
 const initialState = {
   loading: false,
@@ -8,17 +8,17 @@ const initialState = {
 
 const propertiesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_APARTMENTS_LOADING: return {
+    case FETCH_PROPERTIES_LOADING: return {
       ...state,
       loading: true
     };
-    case FETCH_APARTMENTS_SUCCESS: return {
+    case FETCH_PROPERTIES_SUCCESS: return {
       ...state,
       loading: false,
       all: action.payload,
       error: {}
     };    
-    case FETCH_APARTMENTS_ERROR: return {
+    case FETCH_PROPERTIES_ERROR: return {
       ...state,
       loading: false,
       error: action.payload

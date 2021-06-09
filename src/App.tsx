@@ -6,7 +6,7 @@ import { Route, Switch, Link } from 'react-router-dom';
 import NewMeeting from './components/NewMeeting';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchApartments } from './redux/actions/properties';
+import { fetchProperties } from './redux/actions/properties';
 import Properties from './components/Properties';
 import Meeting from './components/Meeting';
 import { allProperties } from './data/ideal-areas';
@@ -16,7 +16,7 @@ function App({ user }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchApartments())
+    dispatch(fetchProperties())
   }, [])
 
   return (

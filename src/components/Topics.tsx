@@ -3,10 +3,11 @@ import { Button, FormControl, Accordion, Card, Form, InputGroup } from "react-bo
 import VotingTable from "./VotingTable";
 import firebase from "firebase";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const Topics = ({ topics }) => {
+const Topics = () => {
   const { id } = useParams();
-
+  const topics: any = useSelector<any>(state => state.meeting.data.topics)
   const [newTopic, setNewTopic] = useState('')
 
   const handleAddTopic = () => {
@@ -38,7 +39,7 @@ const Topics = ({ topics }) => {
               <Accordion.Collapse eventKey={topic.position}>
                 <Card.Body>
                   <p><strong>Въпрос:</strong> {topic.text}</p>
-                  <VotingTable />
+                  <VotingTable topic={topic}/>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
