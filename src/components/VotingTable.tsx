@@ -96,8 +96,8 @@ const VotingTable = ({ topic }) => {
   return (
     <div>
       <ProgressBar striped variant='success' className="my-2" now={percentageSupported} label={`ЗА - ${percentageSupported}%`} />
-      <ProgressBar striped variant='danger' className="my-2" now={percentageAgainst} label={`ЗА - ${percentageAgainst}%`} />
-      <ProgressBar striped variant='warning' className="my-2" now={percentageRefrained} label={`ЗА - ${percentageRefrained}%`} />
+      <ProgressBar striped variant='danger' className="my-2" now={percentageAgainst} label={`ПРОТИВ - ${percentageAgainst}%`} />
+      <ProgressBar striped variant='warning' className="my-2" now={percentageRefrained} label={`ВЪЗДЪРЖАЛ СЕ - ${percentageRefrained}%`} />
       <ButtonWithLoading text={"Запази"} handler={handleSave} />
       <Row className="my-2">
         <Col>

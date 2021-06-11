@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import { fetchMeetings } from "../redux/actions/meetings";
 import moment from "moment";
 import { Link } from 'react-router-dom';
+import { calculatePercentage, generateProtocol } from "../utils";
 const Dashboard = () => {
 
   const dispatch = useDispatch();
+  const properties: any = useSelector<any>(state => state.properties);
   const [meetings, setMeetings] = useState<any>({ loading: true })
 
   useEffect(() => {
@@ -46,11 +48,11 @@ const Dashboard = () => {
                   <tr key={i}>
                     <td>{meeting.data.name}</td>
                     <td>{moment(meeting.data.date).locale('bg').format('LL')}</td>
-                    <td>{meeting.data.quorum.length}</td>
+                    <td>{calculatePercentage(properties.all, meeting.data.quorum)}%</td>
                     <td>{meeting.data.open
                       ? <Link to={`/meeting/${meeting.id}`}><Button size="sm">Старт</Button></Link>
                       : <Button size="sm" variant="secondary" disabled>Приключило</Button>}</td>
-                    <td>{<Button size="sm" variant="success" disabled={meeting.data.open}>Протокол</Button>}</td>
+                    <td>{<Button size="sm" variant="success" onClick={() => generateProtocol(meeting.data)}>Протокол</Button>}</td>
                   </tr>
                 ))
               }

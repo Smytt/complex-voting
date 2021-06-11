@@ -15,6 +15,8 @@
     "@types/react": "^17.0.8",
     "@types/react-dom": "^17.0.5",
     "bootstrap": "^4.6.0",
+    "docx": "^6.0.3",
+    "file-saver": "^2.0.5",
     "firebase": "^8.6.3",
     "gh-pages": "^3.2.0",
     "moment": "^2.29.1",

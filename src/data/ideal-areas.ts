@@ -1048,6 +1048,10 @@ export const allAreas = [
   {
     "name": "З-23",
     "area": "19.09"
+  },
+  {
+    "name": "М-00-Гаражи",
+    "area": "519.78"
   }
 ]
 
