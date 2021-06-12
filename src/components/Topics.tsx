@@ -33,7 +33,7 @@ const Topics = () => {
             <Card key={topic.position}>
               <Card.Header>
                 <Accordion.Toggle as={Button} variant="link" eventKey={topic.position}>
-                  {topic.position}. {topic.text.length > 500 ? topic.text.substr(0, 500) + '...' : topic.text}
+                  {topic.position}. {topic.text.length > 80 ? topic.text.substr(0, 80) + '...' : topic.text}
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey={topic.position}>
